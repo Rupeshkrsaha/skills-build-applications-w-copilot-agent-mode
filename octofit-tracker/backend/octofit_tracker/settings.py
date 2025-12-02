@@ -89,7 +89,6 @@ DATABASES = {
             'username': '',
             'password': '',
             'authSource': 'admin',
-            'authMechanism': '',
         },
     }
 }
@@ -133,7 +132,12 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['*']
-ALLOWED_HOSTS = ['*']
+import os
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME', '')
+codespace_host = f"{CODESPACE_NAME}-8000.app.github.dev" if CODESPACE_NAME else ''
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if codespace_host:
+    ALLOWED_HOSTS.append(codespace_host)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
